@@ -24,8 +24,8 @@ public class TestSSH {
 	 */
 	public static void main(String[] args) throws JSchException, IOException, InterruptedException {
 		JSch jsch = new JSch();
-		Session session = jsch.getSession("ipd", "135.191.27.50");
-		session.setPassword("ipd_2012");
+		Session session = jsch.getSession("username", "host");
+		session.setPassword("password");
 		session.setUserInfo(new MyUserInfo());
 		session.connect();
 		
