@@ -11,19 +11,26 @@ import java.util.Objects;
  * @author migle
  */
 public class Command {
-    
-    public enum TYPE{SQL,SHELL};
+
+    public enum TYPE {
+
+        SQL, SHELL
+    };
     private String threadID;
     private String sender;
     private String cmd;
     private String result;
     private TYPE type;
-   
-    
+
     public Command(String threadID, String sender, String cmd) {
+        this(threadID, sender, cmd, TYPE.SQL);
+    }
+
+    public Command(String threadID, String sender, String cmd, TYPE type) {
         this.threadID = threadID;
         this.sender = sender;
         this.cmd = cmd;
+        this.type = type;
     }
 
     public String getThreadID() {
@@ -58,15 +65,14 @@ public class Command {
         this.result = result;
     }
 
-      public TYPE getType() {
+    public TYPE getType() {
         return type;
     }
 
     public void setType(TYPE type) {
         this.type = type;
     }
-    
-    
+
     @Override
     public int hashCode() {
         int hash = 7;

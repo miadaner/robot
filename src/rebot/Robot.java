@@ -31,7 +31,7 @@ public class Robot {
      */
     public static void main(String[] args) throws XMPPException, IOException {
         ConnectionConfiguration conf = new ConnectionConfiguration("talk.google.com", 5222, "gmail.com");
-        final ArrayBlockingQueue<Command> commands = new ArrayBlockingQueue<>(20);
+        final ArrayBlockingQueue<Command> commands = new ArrayBlockingQueue<Command>(20);
         final Executor ex =  Executors.newFixedThreadPool(2);
         
         conf.setSASLAuthenticationEnabled(false);
@@ -77,12 +77,20 @@ public class Robot {
 //                        System.out.println(message.getBody());
 //                        System.out.println(chat.getThreadID());
                         //a
-                        commands.add(new Command(chat.getThreadID(), chat.getParticipant(), message.getBody()));
-                        try {
-                            chat.sendMessage(message.getBody() + "::" + chat.getThreadID());
-                        } catch (XMPPException ex) {
-                            Logger.getLogger(Robot.class.getName()).log(Level.SEVERE, null, ex);
+                        /*  :h 帮助信息
+                         *  :shell shell模式
+                         *  :sql sql模式
+                         *  :master 管理模式
+                         */
+                        if(!message.getBody().startsWith(":")){
+                             commands.add(new Command(chat.getThreadID(), chat.getParticipant(), message.getBody()));
                         }
+                        
+//                        try {
+//                            chat.sendMessage(message.getBody() + ":" + chat.getThreadID());
+//                        } catch (XMPPException ex) {
+//                            Logger.getLogger(Robot.class.getName()).log(Level.SEVERE, null, ex);
+//                        }
                     }
                 });
             }
